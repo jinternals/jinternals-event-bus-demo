@@ -1,0 +1,20 @@
+server:
+  port: 8081
+
+event:
+  bus:
+    activemq:
+      listener-package: com.jinternals.activemq.consumer.events
+      event-package: com.jinternals.activemq.consumer.events
+      exclusive-consumer: true
+      broker:
+        url: tcp://localhost:61616
+        user-name: admin
+        password: admin
+      producer:
+        destination: Event.Bus
+        pub-sub: false
+      consumer:
+        enabled: false
+
+
