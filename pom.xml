@@ -24,6 +24,10 @@
 
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <plugin.git-commit.version>2.2.2</plugin.git-commit.version>
+
+        <docker.image.prefix>jinternals</docker.image.prefix>
+        <plugin.docker.version>0.4.13</plugin.docker.version>
+
     </properties>
 
     <dependencyManagement>
@@ -43,6 +47,21 @@
     </dependencyManagement>
 
     <build>
+        <resources>
+            <resource>
+                <directory>src/main/resources</directory>
+                <filtering>true</filtering>
+            </resource>
+            <resource>
+                <directory>src/main/docker</directory>
+                <filtering>true</filtering>
+                <includes>
+                    <include>Dockerfile</include>
+                </includes>
+                <targetPath>${project.build.directory}/docker-resources</targetPath>
+            </resource>
+        </resources>
+
         <pluginManagement>
             <plugins>
                 <plugin>
@@ -66,6 +85,28 @@
                             </goals>
                         </execution>
                     </executions>
+                </plugin>
+                <plugin>
+                    <groupId>com.spotify</groupId>
+                    <artifactId>docker-maven-plugin</artifactId>
+                    <version>${plugin.docker.version}</version>
+                    <configuration>
+                        <skipDockerBuild>true</skipDockerBuild>
+                        <skipDockerPush>true</skipDockerPush>
+                        <forceTags>true</forceTags>
+                        <imageTags>
+                            <imageTag>latest</imageTag>
+                        </imageTags>
+                        <imageName>${docker.image.prefix}/${project.artifactId}</imageName>
+                        <dockerDirectory>${project.build.directory}/docker-resources</dockerDirectory>
+                        <resources>
+                            <resource>
+                                <targetPath>/</targetPath>
+                                <directory>${project.build.directory}</directory>
+                                <include>${project.build.finalName}.jar</include>
+                            </resource>
+                        </resources>
+                    </configuration>
                 </plugin>
             </plugins>
         </pluginManagement>

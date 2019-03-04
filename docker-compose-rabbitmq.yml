@@ -1,6 +1,7 @@
 version: '3.5'
 
 services:
+
   activemq:
     image: jinternals/activemq
     build: ./config/activemq/
@@ -13,6 +14,24 @@ services:
     networks:
       activemq-network:
         ipv4_address: 14.5.0.2
+
+  consumer:
+    image: jinternals/consumer
+    container_name: consumer
+    ports:
+      - 8081:8080
+    networks:
+      activemq-network:
+        ipv4_address: 14.5.0.3
+
+  producer:
+    image: jinternals/producer
+    container_name: producer
+    ports:
+      - 8082:8080
+    networks:
+      activemq-network:
+        ipv4_address: 14.5.0.4
 
 networks:
   activemq-network:
