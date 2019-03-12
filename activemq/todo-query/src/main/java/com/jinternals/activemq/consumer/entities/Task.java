@@ -1,4 +1,4 @@
-package com.jinternals.activemq.producer.entities;
+package com.jinternals.activemq.consumer.entities;
 
 
 import javax.persistence.Entity;
@@ -22,10 +22,6 @@ public class Task {
         this.id = id;
         this.title = title;
         this.description = description;
-    }
-
-    public String getId() {
-        return id;
     }
 
     public boolean isStarted() {

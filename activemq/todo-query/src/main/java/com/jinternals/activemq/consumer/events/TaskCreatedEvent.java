@@ -35,5 +35,12 @@ public class TaskCreatedEvent {
         return description;
     }
 
-
+    @Override
+    public String toString() {
+        return "TaskCreatedEvent{" +
+                "id='" + id + '\'' +
+                ", title='" + title + '\'' +
+                ", description='" + description + '\'' +
+                '}';
+    }
 }

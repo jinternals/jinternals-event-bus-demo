@@ -1,14 +1,12 @@
 package com.jinternals.activemq.producer.controllers;
 
 import com.jinternals.activemq.producer.commands.CreateTaskCommand;
+import com.jinternals.activemq.producer.commands.StartTaskCommand;
 import com.jinternals.activemq.producer.entities.Task;
 import com.jinternals.activemq.producer.services.TaskService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 
@@ -32,7 +30,17 @@ public class TaskCommandController {
         return ok(task);
     }
 
+    @PostMapping("task/{id}/start")
+    public void startTask(@PathVariable("id") String id){
+        taskService.start(startTaskCommand(id));
+    }
+
     private CreateTaskCommand createTaskCommand(TaskRequest taskRequest) {
         return new CreateTaskCommand(UUID.randomUUID().toString(),taskRequest.getTitle(),taskRequest.getDescription());
+    }
+
+
+    private StartTaskCommand startTaskCommand(String id) {
+        return new StartTaskCommand(id);
     }
 }

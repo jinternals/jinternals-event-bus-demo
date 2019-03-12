@@ -3,6 +3,7 @@ package com.jinternals.activemq.producer.configuration;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Primary;
 import org.springframework.orm.jpa.JpaTransactionManager;
 import org.springframework.transaction.PlatformTransactionManager;
 
@@ -15,6 +16,7 @@ public class ToDoConfig {
     @Autowired
     private EntityManagerFactory entityManagerFactory;
 
+    @Primary
     @Bean("transactionManager")
     public PlatformTransactionManager dbTransactionManager() {
         JpaTransactionManager transactionManager
