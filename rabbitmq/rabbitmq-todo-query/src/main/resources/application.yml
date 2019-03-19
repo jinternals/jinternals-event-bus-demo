@@ -1,0 +1,45 @@
+server:
+  port: 8080
+
+
+spring:
+  application:
+    name: todo-command
+  h2:
+    console:
+      enabled: true
+      path: /h2-console
+      settings:
+        web-allow-others: true
+        trace: true
+  datasource:
+    driverClassName: org.h2.Driver
+    url: jdbc:h2:mem:todo-query-db
+    username: sa
+    password:
+  jpa:
+    properties:
+      hibernate:
+        hbm2ddl:
+          auto: validate
+    hibernate:
+      show_sql: true
+      use_sql_comments: true
+      format_sql: true
+    database-platform: org.hibernate.dialect.H2Dialect
+  flyway:
+    locations: classpath:db/migration/h2
+
+event:
+  bus:
+    rabbitmq:
+      listener-package: com.jinternals.rabbitmq.consumer.listeners
+      event-package: com.jinternals.rabbitmq.consumer.events
+      broker:
+        url: amqp://rabbitmq:5672
+        user-name: guest
+        password: guest
+      consumer:
+        destination: event.bus.todo-query
+        concurrency: 1-1
+

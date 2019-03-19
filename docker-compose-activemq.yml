@@ -1,0 +1,41 @@
+version: '3.5'
+
+services:
+
+  activemq:
+    image: jinternals/activemq
+    build: ./config/activemq/
+    container_name: activemq
+    ports:
+      - 8161:8161
+      - 61616:61616
+    volumes:
+      - ./config/activemq/activemq.xml:/opt/activemq/conf/activemq.xml
+    networks:
+      activemq-network:
+        ipv4_address: 14.5.0.2
+
+  todo-query:
+    image: jinternals/todo-query
+    container_name: todo-query
+    ports:
+      - 8081:8080
+    networks:
+      activemq-network:
+        ipv4_address: 14.5.0.3
+
+  todo-command:
+    image: jinternals/todo-command
+    container_name: todo-command
+    ports:
+      - 8082:8080
+    networks:
+      activemq-network:
+        ipv4_address: 14.5.0.4
+
+networks:
+  activemq-network:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 14.5.0.0/16

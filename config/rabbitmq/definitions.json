@@ -1,0 +1,65 @@
+{
+  "users": [
+    {
+      "name": "guest",
+      "password_hash": "7w1HmMzSml8zyn+hfcmVGZa74s9Fxzhpt52yll0FXvvhfyJI",
+      "tags": "administrator"
+    }
+  ],
+  "vhosts": [
+    {
+      "name": "/"
+    }
+  ],
+  "permissions": [
+    {
+      "user": "guest",
+      "vhost": "/",
+      "configure": ".*",
+      "write": ".*",
+      "read": ".*"
+    }
+  ],
+  "parameters": [],
+  "policies": [],
+  "exchanges": [
+    {
+      "name": "event.bus",
+      "vhost": "/",
+      "type": "direct",
+      "durable": true,
+      "auto_delete": false,
+      "internal": false,
+      "arguments": {}
+    }
+  ],
+  "queues": [
+    {
+      "name": "event.bus.todo-query",
+      "vhost": "/",
+      "durable": true,
+      "auto_delete": false,
+      "arguments": {
+        "x-dead-letter-exchange":"",
+        "x-dead-letter-routing-key":"event.bus.todo-query.dlq"
+      }
+    },
+    {
+      "name": "event.bus.todo-query.dlq",
+      "vhost": "/",
+      "durable": true,
+      "auto_delete": false,
+      "arguments": {}
+    }
+  ],
+  "bindings": [
+    {
+      "source": "event.bus",
+      "vhost": "/",
+      "destination": "event.bus.todo-query",
+      "destination_type": "queue",
+      "routing_key": "",
+      "arguments": {}
+    }
+  ]
+}
