@@ -1,4 +1,4 @@
-# jinternals-event-bus-demo"
+# jinternals-event-bus-demo
 
 #### build images:
 mvn clean install docker:build
