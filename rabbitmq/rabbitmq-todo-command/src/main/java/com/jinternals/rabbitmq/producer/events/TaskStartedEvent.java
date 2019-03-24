@@ -1,9 +1,9 @@
 package com.jinternals.rabbitmq.producer.events;
 
-import com.jinternals.event.bus.common.annotations.EventId;
+import com.jinternals.event.bus.producer.gateway.annotation.EventRoutingId;
 
 public class TaskStartedEvent {
-    @EventId
+    @EventRoutingId
     private String id;
 
     public TaskStartedEvent() {

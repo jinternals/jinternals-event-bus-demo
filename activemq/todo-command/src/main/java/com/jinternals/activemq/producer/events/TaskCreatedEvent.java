@@ -1,13 +1,11 @@
 package com.jinternals.activemq.producer.events;
 
 
-import com.jinternals.event.bus.common.annotations.EventId;
-
-import javax.validation.constraints.NotNull;
+import com.jinternals.event.bus.producer.gateway.annotation.EventRoutingId;
 
 public class TaskCreatedEvent {
 
-    @EventId
+    @EventRoutingId
     private String id;
     private String title;
     private String description;

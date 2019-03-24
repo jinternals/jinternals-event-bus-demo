@@ -42,4 +42,10 @@ event:
       consumer:
         destination: Event.Bus.Demo
         concurrency: 1-3
+        retry:
+          enabled: true
+          max-attempts: 3
+          initial-interval: 1000
+          multiplier: 2
+          max-interval: 10000
 
