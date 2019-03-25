@@ -12,6 +12,7 @@ services:
     volumes:
       - ./config/rabbitmq/rabbitmq.config:/etc/rabbitmq/rabbitmq.config:ro
       - ./config/rabbitmq/definitions.json:/etc/rabbitmq/definitions.json:ro
+      - ./config/rabbitmq/enabled_plugins:/etc/rabbitmq/enabled_plugins:ro
     networks:
       rabbitmq-network:
         ipv4_address: 15.5.0.2

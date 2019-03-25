@@ -31,21 +31,49 @@
       "auto_delete": false,
       "internal": false,
       "arguments": {}
+    },
+    {
+      "name": "event.bus.todo-query",
+      "vhost": "/",
+      "type": "x-consistent-hash",
+      "durable": true,
+      "auto_delete": false,
+      "internal": false,
+      "arguments": {
+        "hash-header": "routing_key"
+      }
     }
   ],
   "queues": [
     {
-      "name": "event.bus.todo-query",
+      "name": "event.bus.todo-query-1",
       "vhost": "/",
       "durable": true,
       "auto_delete": false,
       "arguments": {
         "x-dead-letter-exchange":"",
-        "x-dead-letter-routing-key":"event.bus.todo-query.dlq"
+        "x-dead-letter-routing-key":"event.bus.todo-query-1.dlq"
       }
     },
     {
-      "name": "event.bus.todo-query.dlq",
+      "name": "event.bus.todo-query-1.dlq",
+      "vhost": "/",
+      "durable": true,
+      "auto_delete": false,
+      "arguments": {}
+    },
+    {
+      "name": "event.bus.todo-query-2",
+      "vhost": "/",
+      "durable": true,
+      "auto_delete": false,
+      "arguments": {
+        "x-dead-letter-exchange":"",
+        "x-dead-letter-routing-key":"event.bus.todo-query-2.dlq"
+      }
+    },
+    {
+      "name": "event.bus.todo-query-2.dlq",
       "vhost": "/",
       "durable": true,
       "auto_delete": false,
@@ -54,10 +82,26 @@
   ],
   "bindings": [
     {
+      "source": "event.bus.todo-query",
+      "vhost": "/",
+      "destination": "event.bus.todo-query-1",
+      "destination_type": "queue",
+      "routing_key": "1",
+      "arguments": {}
+    },
+    {
+      "source": "event.bus.todo-query",
+      "vhost": "/",
+      "destination": "event.bus.todo-query-2",
+      "destination_type": "queue",
+      "routing_key": "2",
+      "arguments": {}
+    },
+    {
       "source": "event.bus",
       "vhost": "/",
       "destination": "event.bus.todo-query",
-      "destination_type": "queue",
+      "destination_type": "exchange",
       "routing_key": "",
       "arguments": {}
     }

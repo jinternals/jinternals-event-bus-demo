@@ -40,7 +40,7 @@ event:
         user-name: guest
         password: guest
       consumer:
-        destination: event.bus.todo-query
+        destination: event.bus.todo-query-1
         concurrency: 1-1
         retry:
           enabled: true
