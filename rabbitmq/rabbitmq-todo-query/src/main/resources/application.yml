@@ -4,7 +4,7 @@ server:
 
 spring:
   application:
-    name: todo-command
+    name: todo-query
   h2:
     console:
       enabled: true
@@ -40,7 +40,7 @@ event:
         user-name: guest
         password: guest
       consumer:
-        destination: event.bus.todo-query-1
+        destination: event.bus.todo-query-${INSTANCE-INDEX}
         concurrency: 1-1
         retry:
           enabled: true
